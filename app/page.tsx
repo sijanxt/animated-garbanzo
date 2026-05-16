@@ -1,17 +1,5 @@
-import Hero from "@/components/home/hero"
-import Preloader from "@/components/home/preloader"
-import Remembered from "@/components/home/remembered"
-import Second from "@/components/home/second"
-import Third from "@/components/home/third"
+import HomeClient from "@/components/home/home-client"
 
 export default function Home() {
-  return (
-    <main>
-      <Preloader />
-      <Hero />
-      <Remembered />
-      <Second />
-      <Third />
-    </main>
-  )
+  return <HomeClient />
 }

@@ -2,11 +2,16 @@
 
 import { useEffect, useState } from "react"
 
-export default function Preloader() {
+type PreloaderProps = {
+  onEnter?: () => void
+}
+
+export default function Preloader({ onEnter }: PreloaderProps) {
   const [entered, setEntered] = useState(false)
   const [hidden, setHidden] = useState(false)
+
   const handleEnter = () => {
-    window.dispatchEvent(new CustomEvent("site:entered"))
+    onEnter?.()
     setEntered(true)
   }
 
