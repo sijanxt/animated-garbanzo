@@ -5,6 +5,10 @@ import { useEffect, useState } from "react"
 export default function Preloader() {
   const [entered, setEntered] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const handleEnter = () => {
+    window.dispatchEvent(new CustomEvent("site:entered"))
+    setEntered(true)
+  }
 
   useEffect(() => {
     if (entered) {
@@ -32,7 +36,7 @@ export default function Preloader() {
       <button
         type="button"
         className="preloader__enter"
-        onClick={() => setEntered(true)}
+        onClick={handleEnter}
         aria-label="Enter site"
       >
         <span className="preloader__line" />

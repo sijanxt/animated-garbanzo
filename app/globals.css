@@ -130,6 +130,21 @@ body {
   animation: fade-in 1s ease-out 0.6s both;
 }
 
+@keyframes timeline-fill {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.timeline-progress {
+  animation: timeline-fill 5s linear forwards;
+}
+
 @keyframes reveal-in {
   from {
     opacity: 0;
