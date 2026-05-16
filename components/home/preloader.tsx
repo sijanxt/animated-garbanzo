@@ -24,17 +24,22 @@ export default function Preloader({ onEnter }: PreloaderProps) {
 
     if (phase === "intro") {
       const forgottenTimer = window.setTimeout(() => setPhase("forgotten"), 4000)
-      const rememberedTimer = window.setTimeout(() => setPhase("remembered"), 6500)
+      return () => {
+        window.clearTimeout(forgottenTimer)
+      }
+    }
+
+    if (phase === "forgotten") {
+      const rememberedTimer = window.setTimeout(() => setPhase("remembered"), 2500)
+      return () => window.clearTimeout(rememberedTimer)
+    }
+
+    if (phase === "remembered") {
       const doneTimer = window.setTimeout(() => {
         onEnter?.()
         setPhase("done")
-      }, 8500)
-
-      return () => {
-        window.clearTimeout(forgottenTimer)
-        window.clearTimeout(rememberedTimer)
-        window.clearTimeout(doneTimer)
-      }
+      }, 2000)
+      return () => window.clearTimeout(doneTimer)
     }
 
     if (phase === "done") {
