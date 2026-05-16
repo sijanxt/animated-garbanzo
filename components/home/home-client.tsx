@@ -6,28 +6,40 @@ import Preloader from "@/components/home/preloader"
 import Second from "@/components/home/second"
 import Third from "@/components/home/third"
 
+type StoryPhase = "intro" | "forgotten" | "remembered" | "revealed"
+
 export default function HomeClient() {
   const [hasEntered, setHasEntered] = useState(false)
-  const [showRememberedLine, setShowRememberedLine] = useState(false)
+  const [phase, setPhase] = useState<StoryPhase>("intro")
 
   useEffect(() => {
     if (!hasEntered) {
       return
     }
 
-    const revealTimer = window.setTimeout(() => {
-      setShowRememberedLine(true)
+    const forgottenTimer = window.setTimeout(() => {
+      setPhase("forgotten")
     }, 4000)
 
+    const rememberedTimer = window.setTimeout(() => {
+      setPhase("remembered")
+    }, 6500)
+
+    const finalRevealTimer = window.setTimeout(() => {
+      setPhase("revealed")
+    }, 8500)
+
     return () => {
-      window.clearTimeout(revealTimer)
+      window.clearTimeout(forgottenTimer)
+      window.clearTimeout(rememberedTimer)
+      window.clearTimeout(finalRevealTimer)
     }
   }, [hasEntered])
 
   return (
     <main>
       <Preloader onEnter={() => setHasEntered(true)} />
-      <Hero startTimeline={hasEntered} showRememberedLine={showRememberedLine} />
+      <Hero startTimeline={hasEntered} phase={phase} />
       <Second />
       <Third />
     </main>
